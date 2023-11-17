@@ -22,9 +22,14 @@ public class UserController {
 
     UserService userService;
 
+//    @GetMapping("/{id}")
+//    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
+//        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
+//    }
+//
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
+    public ResponseEntity<String> getUser(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(userService.getUser(id).getEmail(), HttpStatus.OK);
     }
 
     @PostMapping("/register")

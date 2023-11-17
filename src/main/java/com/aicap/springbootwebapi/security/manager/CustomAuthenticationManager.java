@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 public class CustomAuthenticationManager implements AuthenticationManager {
 
     private UserServiceImpl service;
-
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override

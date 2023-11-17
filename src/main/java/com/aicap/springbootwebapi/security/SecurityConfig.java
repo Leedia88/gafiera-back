@@ -28,11 +28,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(customAuthenticationManager);
-        authenticationFilter.setFilterProcessesUrl("/api/users/authenticate");
+        authenticationFilter.setFilterProcessesUrl("/authenticate");
         http
                 .csrf().disable()
                 .authorizeRequests()
-//                .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, SecurityConstants.REGISTRATION).permitAll()
                 .antMatchers(HttpMethod.GET).permitAll()
                 .anyRequest().authenticated()

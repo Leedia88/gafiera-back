@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
     @Override
@@ -28,7 +29,8 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
                 .build()
                 .verify(token)
                 .getSubject();
-        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null);
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, Arrays.asList());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }

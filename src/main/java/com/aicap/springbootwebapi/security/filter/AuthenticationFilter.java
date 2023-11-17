@@ -31,11 +31,20 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         try {
             System.out.println("hey je suis dans le authentication");
             User user =  new ObjectMapper().readValue(request.getInputStream(), User.class);
+            System.out.println(user.getEmail() + " " + user.getPassword());
             Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
             return authenticationManager.authenticate(authentication);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        System.out.println("Failed!");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.getWriter().write(failed.getMessage());
+        response.getWriter().flush();
     }
 
     @Override
@@ -48,11 +57,5 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         response.addHeader(SecurityConstants.AUTHORIZATION, SecurityConstants.BEARER + token);
     }
 
-    @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        System.out.println("Failed!");
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.getWriter().write(failed.getMessage());
-        response.getWriter().flush();
-    }
+
 }
