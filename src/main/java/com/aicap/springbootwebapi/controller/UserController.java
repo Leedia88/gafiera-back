@@ -2,6 +2,7 @@ package com.aicap.springbootwebapi.controller;
 
 import com.aicap.springbootwebapi.entity.Event;
 import com.aicap.springbootwebapi.entity.User;
+import com.aicap.springbootwebapi.entity.dto.LoginDto;
 import com.aicap.springbootwebapi.entity.dto.UserDto;
 import com.aicap.springbootwebapi.service.UserService;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,12 @@ public class UserController {
 //    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
 //        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
 //    }
+
+    @PostMapping("/login")
+    public ResponseEntity<User> getLoggedUser(@Valid  @RequestBody LoginDto loginDto) {
+        userService.getLoggedUser(loginDto);
+        return new ResponseEntity<>(userService.getLoggedUser(loginDto), HttpStatus.OK);
+    }
 //
     @GetMapping("/{id}")
     public ResponseEntity<String> getUser(@PathVariable("id") Long id) {

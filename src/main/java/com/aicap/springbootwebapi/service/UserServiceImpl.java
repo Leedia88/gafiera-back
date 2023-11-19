@@ -3,6 +3,7 @@ package com.aicap.springbootwebapi.service;
 import com.aicap.springbootwebapi.dao.UserDao;
 import com.aicap.springbootwebapi.entity.Event;
 import com.aicap.springbootwebapi.entity.User;
+import com.aicap.springbootwebapi.entity.dto.LoginDto;
 import com.aicap.springbootwebapi.entity.dto.UserDto;
 import com.aicap.springbootwebapi.exception.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -34,9 +35,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getLoggedUser(LoginDto loginDto) {
+        Optional<User> option = userdao.findByEmail(loginDto.getEmail());
+        return unwrapUser(option, 404L);
+    }
+
+    @Override
     public User saveUser(UserDto userDto) {
         String password = bCryptPasswordEncoder.encode(userDto.getPassword());
-        System.out.println(userDto.toString());
         User user = new User(userDto.getName(), userDto.getLastName(), userDto.getEmail(), password);
         return userdao.save(user);
     }

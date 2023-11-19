@@ -10,6 +10,7 @@ public class EventDto {
     private String description;
     private LocalDate date;
     private Integer duration;
+    private String place;
     private Long owner;
     private Long category;
 

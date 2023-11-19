@@ -26,6 +26,8 @@ public class Event {
     private Integer duration;
 //    private attendees;
 
+    private String place;
+
     @ManyToOne(optional = false)
     @JoinColumn(name="category_id", referencedColumnName = "id")
     private Category category;
