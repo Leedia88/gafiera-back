@@ -21,7 +21,7 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
             response.getWriter().flush();
         } catch (JWTVerificationException e) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.getWriter().write("NJWT not valid");
+            response.getWriter().write("JWT not valid");
             response.getWriter().flush();
         } catch (RuntimeException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
