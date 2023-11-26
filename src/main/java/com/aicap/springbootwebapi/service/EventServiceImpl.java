@@ -77,7 +77,12 @@ public class EventServiceImpl implements EventService {
         Event event = findById(event_id);
         Optional<User> user = userDao.findById(user_id);
         User unwrappedUser = UserServiceImpl.unwrapUser(user, user_id);
-        event.getParticipants().add(unwrappedUser);
+        List<User> participants = event.getParticipants();
+        if (participants.contains(user)) {
+            System.out.println("je suis déja dans la liste");
+        }
+        else{
+            participants.add(unwrappedUser);}
         return eventDao.save(event);
     }
 

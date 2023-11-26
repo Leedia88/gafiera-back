@@ -37,7 +37,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getLoggedUser(LoginDto loginDto) {
         Optional<User> option = userdao.findByEmail(loginDto.getEmail());
-        return unwrapUser(option, 404L);
+        User foundUser = unwrapUser(option, 404L);
+        if (loginDto.getPassword().equals(foundUser.getPassword())) {
+            return foundUser;
+        }
+        return null;
     }
 
     @Override
