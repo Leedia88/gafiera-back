@@ -6,19 +6,15 @@ import com.aicap.springbootwebapi.entity.dto.LoginDto;
 import com.aicap.springbootwebapi.entity.dto.UserDto;
 import com.aicap.springbootwebapi.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/users")
-//@CrossOrigin("http://localhost:3000")
 @CrossOrigin("${front.url}")
 public class UserController {
 
@@ -34,7 +30,7 @@ public class UserController {
         userService.getLoggedUser(loginDto);
         return new ResponseEntity<>(userService.getLoggedUser(loginDto), HttpStatus.OK);
     }
-//
+
     @GetMapping("/{id}")
     public ResponseEntity<String> getUser(@PathVariable("id") Long id) {
         return new ResponseEntity<>(userService.getUser(id).getEmail(), HttpStatus.OK);
@@ -46,10 +42,10 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-//    @PostMapping
-//    public ResponseEntity<User> saveUser(@RequestBody UserDto user) {
-//        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
-//    }
+    @PostMapping
+    public ResponseEntity<User> saveUser(@RequestBody UserDto user) {
+        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
+    }
 
     @GetMapping
     public ResponseEntity<List<User>> retriveAllUsers() {

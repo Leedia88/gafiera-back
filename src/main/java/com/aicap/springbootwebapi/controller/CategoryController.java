@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("${front.url}")
 public class CategoryController {
 
     private CategoryService categoryService;
